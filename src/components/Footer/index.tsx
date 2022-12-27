@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
-    defaultMessage: '蚂蚁集团体验技术部出品',
+    defaultMessage: '知客出品',
   });
 
   const currentYear = new Date().getFullYear();
@@ -32,8 +32,8 @@ const Footer: React.FC = () => {
           blankTarget: true,
         },
         {
-          key: 'Ant Design',
-          title: 'Ant Design',
+          key: 'zhike',
+          title: 'zhike',
           href: 'https://ant.design',
           blankTarget: true,
         },
