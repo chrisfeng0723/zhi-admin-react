@@ -10,7 +10,10 @@
  * @doc https://umijs.org/docs/guides/proxy
  */
 export default {
-  dev: {},
+  /** 
+  dev: {
+  },
+  */
   /**
    * @name 详细的代理配置
    * @doc https://github.com/chimurai/http-proxy-middleware
