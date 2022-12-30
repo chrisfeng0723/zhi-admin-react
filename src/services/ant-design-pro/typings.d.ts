@@ -98,4 +98,27 @@ declare namespace API {
     description?: string;
     type?: NoticeIconItemType;
   };
+
+  type DepatListItem = {
+    createBy?: int;
+    createdAt?: string;
+    dataScope?: string;
+    deptId?: int;
+    deptName?: string;
+    deptPath?: string;
+    email?: string;
+    leader?: string;
+    phone?: string;
+    sort?: int;
+    status?: int;
+    updateBy?: int;
+    updatedAt?: string;
+  };
+
+  type DepartList = {
+    data?: DepatListItem[];
+    /** 列表的内容总数 */
+    total?: number;
+    success?: boolean;
+  };
 }
