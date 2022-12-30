@@ -56,6 +56,33 @@ export default [
     redirect: '/welcome',
   },
   {
+    path: '/system',
+    name: 'system',
+    icon: 'appstore',
+    routes: [
+      {
+        path: '/system/users',
+        name: 'users',
+        component: './Admin',
+      },
+      {
+        path: '/system/roles',
+        name: 'roles',
+        component: './Admin',
+      },
+      {
+        path: '/system/menus',
+        name: 'menus',
+        component: './Admin',
+      },
+      {
+        path: 'system/dept-manage',
+        name: 'depat-manage',
+        component: './System/Depat',
+      },
+    ],
+  },
+  {
     path: '*',
     layout: false,
     component: './404',
