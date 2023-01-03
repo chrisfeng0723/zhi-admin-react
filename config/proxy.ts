@@ -10,10 +10,14 @@
  * @doc https://umijs.org/docs/guides/proxy
  */
 export default {
-  /** 
   dev: {
+    '/api/': {
+      target: 'http://10.16.49.85:10088',
+      changeOrigin: true,
+      pathRewrite: { '^': '' },
+    },
   },
-  */
+
   /**
    * @name 详细的代理配置
    * @doc https://github.com/chimurai/http-proxy-middleware

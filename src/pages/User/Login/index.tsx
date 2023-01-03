@@ -21,6 +21,7 @@ import { Alert, message, Tabs } from 'antd';
 import Settings from '../../../../config/defaultSettings';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
+import CaptchInput from '@/components/CaptchInput';
 
 const ActionIcons = () => {
   const langClassName = useEmotionCss(({ token }) => {
@@ -260,6 +261,7 @@ const Login: React.FC = () => {
                   },
                 ]}
               />
+              <CaptchInput />
             </>
           )}
 

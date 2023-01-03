@@ -121,4 +121,8 @@ declare namespace API {
     total?: number;
     success?: boolean;
   };
+
+  type CaptchID = {
+    captcha_id: string;
+  };
 }

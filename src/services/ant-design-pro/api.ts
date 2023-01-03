@@ -1,6 +1,8 @@
 // @ts-ignore
 /* eslint-disable */
 import { request } from '@umijs/max';
+import config from 'config/config';
+import proxy from 'config/proxy';
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
@@ -18,6 +20,17 @@ export async function outLogin(options?: { [key: string]: any }) {
     method: 'POST',
     ...(options || {}),
   });
+}
+
+export async function getCaptchaId(options?: { [key: string]: any }) {
+  return request<API.CaptchID>('/api/v1/pub/login/captchaid', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
+export async function getCaptchaImage(params: { id: string }) {
+  return `/api/v1/pub/login/captcha?id=${params.id}`;
 }
 
 /** 登录接口 POST /api/login/account */
