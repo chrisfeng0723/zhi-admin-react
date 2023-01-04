@@ -1,5 +1,3 @@
-import { ProForm, ProFormText } from '@ant-design/pro-components';
-import { SafetyCertificateOutlined } from '@ant-design/icons';
 import { getCaptchaId, getCaptchaImage } from '@/services/ant-design-pro/api';
 import { useState, useEffect } from 'react';
 import { Image, message } from 'antd';
@@ -16,33 +14,32 @@ const getCaptcha = async () => {
   return '';
 };
 
-const CaptchInput: React.FC = () => {
+interface Iprops {
+  width: number;
+  getCaptchId: (n: string) => void;
+}
+
+const CaptchInput: React.FC<Iprops> = (props: Iprops) => {
+  const { width, getCaptchId } = props;
+  const [captchId, setCapthId] = useState<string>('');
   const [captchImg, setCaptchImgUrl] = useState<string>('');
   useEffect(() => {
     getCaptcha().then(async (data: string) => {
       const result = await getCaptchaImage({ id: data });
+      setCapthId(data);
+      getCaptchId(captchId);
       setCaptchImgUrl(result);
     });
   }, []);
   const reloadCaptch = () => {
     getCaptcha().then(async (data: string) => {
       const result = await getCaptchaImage({ id: data });
+      setCapthId(data);
+      getCaptchId(captchId);
       setCaptchImgUrl(result);
     });
   };
-  return (
-    <ProForm.Group>
-      <ProFormText
-        fieldProps={{
-          size: 'large',
-          prefix: <SafetyCertificateOutlined />,
-        }}
-        width={190}
-        placeholder="请输入验证码"
-      ></ProFormText>
-      <Image preview={false} width={100} src={captchImg} onClick={reloadCaptch} />
-    </ProForm.Group>
-  );
+  return <Image preview={false} width={width} src={captchImg} onClick={reloadCaptch} />;
 };
 
 export default CaptchInput;

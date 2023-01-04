@@ -8,8 +8,10 @@ import {
   TaobaoCircleOutlined,
   UserOutlined,
   WeiboCircleOutlined,
+  SafetyCertificateOutlined,
 } from '@ant-design/icons';
 import {
+  ProForm,
   LoginForm,
   ProFormCaptcha,
   ProFormCheckbox,
@@ -115,8 +117,11 @@ const Login: React.FC = () => {
     }
   };
 
+  const [captchId, getCaptchId] = useState<string>('');
+
   const handleSubmit = async (values: API.LoginParams) => {
     try {
+      values.captchKey = captchId;
       // 登录
       const msg = await login({ ...values, type });
       if (msg.status === 'ok') {
@@ -261,7 +266,18 @@ const Login: React.FC = () => {
                   },
                 ]}
               />
-              <CaptchInput />
+              <ProForm.Group>
+                <ProFormText
+                  name="captchCode"
+                  fieldProps={{
+                    size: 'large',
+                    prefix: <SafetyCertificateOutlined />,
+                  }}
+                  width={190}
+                  placeholder="请输入验证码"
+                />
+                <CaptchInput width={100} getCaptchId={getCaptchId} />
+              </ProForm.Group>
             </>
           )}
 
