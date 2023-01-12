@@ -59,6 +59,7 @@ export default [
     path: '/system',
     name: 'system',
     icon: 'appstore',
+    access: 'canAdmin',
     routes: [
       {
         path: '/system/users',

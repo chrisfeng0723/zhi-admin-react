@@ -107,6 +107,7 @@ const Login: React.FC = () => {
 
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
+    console.log(userInfo);
     if (userInfo) {
       flushSync(() => {
         setInitialState((s) => ({
@@ -117,12 +118,12 @@ const Login: React.FC = () => {
     }
   };
 
-  const [captchId, getCaptchId] = useState<string>('');
-
+  const [captchaId, getCaptchaId] = useState<string>('');
   const handleSubmit = async (values: API.LoginParams) => {
     try {
-      values.captchKey = captchId;
-      // 登录
+      // 获取验证码
+      values.captchaKey = captchaId;
+      //登录
       const msg = await login({ ...values, type });
       if (msg.status === 'ok') {
         const defaultLoginSuccessMessage = intl.formatMessage({
@@ -268,7 +269,7 @@ const Login: React.FC = () => {
               />
               <ProForm.Group>
                 <ProFormText
-                  name="captchCode"
+                  name="captchaCode"
                   fieldProps={{
                     size: 'large',
                     prefix: <SafetyCertificateOutlined />,
@@ -276,7 +277,7 @@ const Login: React.FC = () => {
                   width={190}
                   placeholder="请输入验证码"
                 />
-                <CaptchInput width={100} getCaptchId={getCaptchId} />
+                <CaptchInput width={100} getCaptchaId={getCaptchaId} />
               </ProForm.Group>
             </>
           )}

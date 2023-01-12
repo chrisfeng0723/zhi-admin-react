@@ -66,8 +66,8 @@ declare namespace API {
     password?: string;
     autoLogin?: boolean;
     type?: string;
-    captchCode?: string;
-    captchKey?: string;
+    captchaCode?: string;
+    captchaKey?: string;
   };
 
   type ErrorResponse = {
@@ -105,9 +105,9 @@ declare namespace API {
     createBy?: int;
     createdAt?: string;
     dataScope?: string;
-    deptId?: int;
-    deptName?: string;
-    deptPath?: string;
+    id?: string;
+    depart_name?: string;
+    dept_path?: string;
     email?: string;
     leader?: string;
     phone?: string;

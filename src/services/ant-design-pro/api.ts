@@ -8,7 +8,7 @@ import proxy from 'config/proxy';
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
     data: API.CurrentUser;
-  }>('/api/currentUser', {
+  }>('/api/v1/pub/current/user', {
     method: 'GET',
     ...(options || {}),
   });
@@ -33,9 +33,9 @@ export async function getCaptchaImage(params: { id: string }) {
   return `/api/v1/pub/login/captcha?id=${params.id}`;
 }
 
-/** 登录接口 POST /api/login/account */
+/** 登录接口 POST /api/v1/pub/login */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/api/login/account', {
+  return request<API.LoginResult>('/api/v1/pub/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

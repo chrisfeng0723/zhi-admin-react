@@ -16,30 +16,29 @@ const getCaptcha = async () => {
 
 interface Iprops {
   width: number;
-  getCaptchId: (n: string) => void;
+  getCaptchaId: (n: string) => void;
 }
 
-const CaptchInput: React.FC<Iprops> = (props: Iprops) => {
-  const { width, getCaptchId } = props;
-  const [captchId, setCapthId] = useState<string>('');
-  const [captchImg, setCaptchImgUrl] = useState<string>('');
+const CaptchInput: React.FC<Iprops> = ({ width, getCaptchaId }) => {
+  // const [captchaId, setCapthaId] = useState<string>('');
+  const [captchaImg, setCaptchaImgUrl] = useState<string>('');
   useEffect(() => {
     getCaptcha().then(async (data: string) => {
       const result = await getCaptchaImage({ id: data });
-      setCapthId(data);
-      getCaptchId(captchId);
-      setCaptchImgUrl(result);
+      // setCapthaId(data);
+      getCaptchaId(data);
+      setCaptchaImgUrl(result);
     });
   }, []);
   const reloadCaptch = () => {
     getCaptcha().then(async (data: string) => {
       const result = await getCaptchaImage({ id: data });
-      setCapthId(data);
-      getCaptchId(captchId);
-      setCaptchImgUrl(result);
+      // setCapthaId(data);
+      getCaptchaId(data);
+      setCaptchaImgUrl(result);
     });
   };
-  return <Image preview={false} width={width} src={captchImg} onClick={reloadCaptch} />;
+  return <Image preview={false} width={width} src={captchaImg} onClick={reloadCaptch} />;
 };
 
 export default CaptchInput;

@@ -9,8 +9,99 @@ import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import React from 'react';
+import { SmileOutlined, HeartOutlined, CrownOutlined, AppstoreOutlined } from '@ant-design/icons';
+
+import type { MenuDataItem } from '@ant-design/pro-components';
+
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
+
+const IconMap = {
+  smile: <SmileOutlined />,
+  heart: <HeartOutlined />,
+  crown: <CrownOutlined />,
+  appstore: <AppstoreOutlined />,
+};
+const defaultMenuProps = [
+  {
+    path: '/user',
+    layout: false,
+    routes: [
+      {
+        name: 'login',
+        path: '/user/login',
+        component: './User/Login',
+      },
+    ],
+  },
+  {
+    path: '/welcome',
+    name: 'welcome',
+    icon: 'smile',
+    component: './Welcome',
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    icon: 'crown',
+    access: 'canAdmin',
+    routes: [
+      {
+        path: '/admin',
+        redirect: '/admin/sub-page',
+      },
+      {
+        path: '/admin/sub-page',
+        name: 'sub-page',
+        component: './Admin',
+      },
+    ],
+  },
+  {
+    name: 'list.table-list',
+    icon: 'table',
+    path: '/list',
+    component: './TableList',
+  },
+  {
+    path: '/',
+    redirect: '/welcome',
+  },
+  {
+    path: '/system',
+    name: 'system',
+    icon: 'appstore',
+    routes: [
+      {
+        path: '/system/users',
+        name: 'users',
+        component: './Admin',
+      },
+      {
+        path: '/system/roles',
+        name: 'roles',
+        component: './Admin',
+      },
+      {
+        path: '/system/menus',
+        name: 'menus',
+        component: './Admin',
+      },
+      {
+        path: 'system/dept-manage',
+        name: 'depat-manage',
+        component: './System/Depat',
+      },
+    ],
+  },
+];
+
+const loopMenuItem = (menus: any[]): MenuDataItem[] =>
+  menus.map(({ icon, routes, ...item }) => ({
+    ...item,
+    icon: icon && IconMap[icon as string],
+    children: routes && loopMenuItem(routes),
+  }));
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -113,6 +204,17 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
           />
         </>
       );
+    },
+    menu: {
+      params: {
+        userId: initialState?.currentUser?.userid,
+      },
+      request: async (params, defaultMenuData) => {
+        //  const menuData = await fetchMenuData();
+        console.log(params, initialState, defaultMenuData);
+        const menuData = loopMenuItem(defaultMenuProps);
+        return menuData;
+      },
     },
     ...initialState?.settings,
   };
